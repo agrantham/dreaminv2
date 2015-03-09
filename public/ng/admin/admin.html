@@ -1,0 +1,66 @@
+<h1>Hello I am admin and im in charge of handling moderators</h1>
+<div class="row">
+    <div class="col-md-4">
+        <h2>User Group Type</h2>
+        <div class="btn btn-block btn-default" ng-click="body.groupType = 3">
+            General Users
+        </div>
+        <div class="btn btn-block btn-default" ng-click="body.groupType = 1">
+            Banned Users
+        </div>
+        <div class="btn btn-block btn-default" ng-click="body.groupType = 4">
+            Moderators
+        </div>
+        <div class="btn btn-block btn-default" ng-click="body.groupType = 5">
+            Admins
+        </div>
+        <div class="btn btn-block btn-default" ng-click="body.groupType = 6">
+            Super Admins
+        </div>
+    </div>
+    <div class="col-md-8">
+        <h2>Users</h2>
+
+        <table class="table">
+            <tr>
+                <th>Username</th>
+                <th>Full Name</th>
+                <th>Status</th>
+                <th>Plan</th>
+                <th>Group</th>
+                <th>Actions</th>
+            </tr>
+            <tr ng-repeat="user in body.users | object2Array | filter:{ group_id : body.groupType }">
+                <td>
+                    {{ user.username }}
+                </td>
+                <td>
+                    {{ user.metadata.firstname }} {{ user.metadata.lastname }}
+                </td>
+                <td>
+                    {{user.metadata.status}}
+                </td>
+                <td>
+                    {{ user.metadata.plan}}
+                </td>
+                <td>
+                    {{ user.group_id | user_group }}
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <label class="btn btn-success" ui-sref=".edituser({userid: user.id})">
+                            Edit User
+                        </label>
+                        <label class="btn btn-danger" ng-click="body.editUser()">
+                            Delete User
+                        </label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <h2>New Clouds</h2>
+    <code>{{ body.newClouds }}</code>
+</div>

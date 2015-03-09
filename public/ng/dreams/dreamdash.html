@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-md-6">
+        <h1>{{ dream.dreamData.title }}</h1>
+    <p> {{ dream.dreamData.body }}</p>
+    </div>
+    <div class="col-md-6">
+    <table class="table">
+                <tr ng-repeat="drop in dream.dreamData.drops | object2Array | orderBy: 'status'">
+                    <td width="10%">
+                        <div ng-class="{'btn-success btn-sm' : drop.status == 1, 'btn-danger btn-sm' : drop.status == 0}">
+                            <i class="fa fa-check fa-2x fa-fw" ng-show="drop.status == 1"></i>
+                            <i class="fa fa-times fa-2x fa-fw" ng-show="drop.status == 0"></i>
+                        </div>
+                    </td>
+                    <td width="90%">
+                        <h4 class="" ng-class="{'strike' : drop.status == 1}">{{drop.name}} </h4>
+                    </td>
+                </tr>
+                <h2 ng-show="dreamin.currentCloud.drops.length < 1">There are no drops for this cloud</h2>
+            </table>
+    </div>
+</div>

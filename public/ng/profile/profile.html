@@ -1,0 +1,168 @@
+<div class="alert alert-danger" ng-show="dreamin.message">
+    {{ dreamin.message }}
+</div>
+<div class="row" ng-show="dreamin.newCloud">
+    <div class="col-xs-12">
+        <h2>Add A New Cloud: <button class="btn btn-danger pull-right" ng-click="dreamin.newCloud = false;dreamin.addCloud = {};dreamin.message = false;"><i class="fa fa-times fa-2x"></i> Close</button></h2>
+        <form role="form">
+            <div class='form-group'>
+                <label for="title">Cloud Title</label>
+                <input type="text" class="form-control" ng-model="dreamin.addCloud.title" placeholder="Enter a nifty title" name="title">
+            </div>
+            <div class='form-group'>
+                <label for="title">Cloud Description</label>
+                <textarea class="form-control" ng-model="dreamin.addCloud.body"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="goal">Accomplish Goal</label>
+                <input class="form-control" type="date" ng-model="dreamin.addCloud.goal">
+            </div>
+            <button type="button" ng-click="dreamin.submitCloud()" class="btn btn-success btn-block">Add Cloud</button>
+        </form>
+    </div>
+</div>
+<div class="row" ng-show="dreamin.newDrop">
+    <div class="col-xs-12">
+        <h2>Add A New Drop: <button class="btn btn-danger pull-right" ng-click="dreamin.newDrop = false; dreamin.addDrop = {}; dreamin.message = false;"><i class="fa fa-times fa-2x"></i> Close</button></h2>
+        <form role="form">
+            <div class='form-group'>
+                <label for="title">Drop Name</label>
+                <input type="text" class="form-control" ng-model="dreamin.addDrop.name" placeholder="Pick a nifty name">
+            </div>
+            <div class="form-group">
+                <label for="body">Drop Description: <small>Should be short and sweet</small></label>
+                <input type="text" class="form-control" ng-model="dreamin.addDrop.body" placeholder="Drop description">
+            </div>
+            <button type="button" ng-click="dreamin.submitDrop()" class="btn btn-success btn-block">Add Drop</button>
+        </form>
+    </div>
+</div>
+<div class="row" ng-show="dreamin.newDroplet">
+    <div class="col-xs-12">
+        <h2>Add A New Droplet: <button class="btn btn-danger pull-right" ng-click="dreamin.newDroplet = false; dreamin.addDroplet = {}; dreamin.message = false;"><i class="fa fa-times fa-2x"></i> Close</button></h2>
+        <form role="form">
+            <div class='form-group'>
+                <label for="title">Droplet Name</label>
+                <input type="text" class="form-control" ng-model="dreamin.addDroplet.name" placeholder="Pick a nifty name">
+            </div>
+            <div class='form-group'>
+                <label for="title">Droplet Description</label>
+                <input type="text" class="form-control" ng-model="dreamin.addDroplet.body" placeholder="Pick a nifty way to describe this droplet">
+            </div>
+            <button type="button" ng-click="dreamin.submitDroplet()" class="btn btn-success btn-block">Add Droplet</button>
+        </form>
+    </div>
+</div>
+<!-- initial view -->
+
+<div ng-show="!dreamin.newCloud && !dreamin.newDrop && !dreamin.newDroplet">
+<h1> Hello {{ body.user.metadata.firstname }}! Welcome to your Dreamcubator, let's brew some storms of success! </h1>
+    <div class="row text-center" ng-show="!dreamin.currentCloud || dreamin.clouds.length == 0">
+        <h2>You currently have no dream selected or have no dreams!</h2>
+        Get started by <div class="btn btn-success btn-sm" ng-click="dreamin.newCloud = true">Adding a dream</div>
+    </div>
+    <div class="row" ng-show="dreamin.clouds.length !== 0">
+        <div class="col-md-2">
+            <h2>Current Dreams</h2>
+            <button type="button" class="btn btn-warning btn-block btn-sm btn-small" ng-click="dreamin.checkPlanDreams()"> Add Dream</button>
+            <button class="btn btn-default btn-block text-left" ng-class="{'currentCloud' : dreamin.currentCloud.id == cloud.id }" ng-repeat="cloud in dreamin.clouds | object2Array | orderBy:'created_at':false" ng-click="dreamin.assignCurrentCloud(cloud.id)" style="text-align:left;">
+                <i class="fa fa-cloud fa-2x fa-fw"></i> {{ cloud.title }}
+            </button>
+        </div>
+        <div class="col-md-8">
+            <h2>Dream Description</h2>
+            <div class="alert alert-info">
+                <div class="row" ng-show="dreamin.currentCloud">
+                    <div class="col-md-10">
+                        <h4>{{ dreamin.currentCloud.title }}</h4>
+                        <p>{{dreamin.currentCloud.body}}</p>
+                        <h4><div class="btn btn-warning btn-small btn-sm" ng-click="dreamin.newTagFlag = true"><i class="fa fa-plus fa-fw" ></i></div> Dream Tags</h4>
+                        <div class="input-group" ng-show="dreamin.newTagFlag">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" ng-click="dreamin.addTag()">Add</button>
+                            </span>
+                            <input type="text" class="form-control" ng-model="dreamin.addNewTag" placeholder="Add a new tag">
+                        </div>
+                        <div class="row" style="margin-top:15px;">
+                            <ul class="list-inline">
+                                <li  ng-repeat="tag in dreamin.currentCloud.tags"><i class="fa fa-times fa-fw" ng-click="dreamin.deleteTag(tag.id)" style="cursor:pointer"></i> {{tag.name}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-warning btn-block" ng-click="dreamin.deleteFlag = true" ng-show="!dreamin.deleteFlag"> Delete Cloud</button>
+                        <h4 ng-show="dreamin.deleteFlag">Are you sure?</h4>
+                        <button type="button" class="btn btn-danger btn-block" ng-click="dreamin.deleteCloud(dreamin.currentCloud.id);dreamin.deleteFlag = false" ng-show="dreamin.deleteFlag">Yes</button>
+                        <button type="button" class="btn btn-warning btn-block" ng-click="dreamin.deleteFlag = false" ng-show="dreamin.deleteFlag">No</button>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="col-xs-12">
+                        <h2><div class="btn btn-warning btn-small btn-sm" ng-click="dreamin.verifyNumberOfDrops()"><i class="fa fa-plus fa-fw" ></i></div> Drops </h2>
+                    </div>
+                    <div class="col-md-3" ng-repeat="drop in dreamin.currentCloud.drops | object2Array | orderBy:'created_at':false" >
+                        <div class="bg-primary" ng-class="{'currentDrop' : drop.id == dreamin.currentDropId }" ng-click="dreamin.assignCurrentDrop(drop.id)" style="text-align:left;padding:20px;">
+                            <h4>
+                                <i class="fa fa-check fa-fw" ng-show="drop.status == '1'"></i>
+                                <i class="fa fa-times fa-fw" ng-show="drop.status == '0'"></i>
+                                {{drop.name}}
+                            </h4>
+                            <p ng-show="drop.body">{{ drop.body }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="dreamin.clouds.length !== 0">
+                    <div class="alert alert-info" ng-show="dreamin.currentCloud.drops.length < 1 || dreamin.currentCloud.drops == 'undefined'">
+                        <p> There are currently no drops for this Dream.</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-right:0px;margin-left:0px;"  ng-hide="dreamin.dropListLength()">
+                    <h2><div class="btn btn-warning btn-small btn-sm" ng-click="dreamin.newDroplet = true"><i class="fa fa-plus fa-fw" ></i></div> Droplets</h2>
+                    <table class="table">
+                        <tr ng-repeat="droplet in dreamin.currentDrop.droplets | object2Array | orderBy:'created_at':true">
+                            <td width="10%">
+                                <div ng-class="{'btn btn-success btn-sm' : droplet.status == 1, 'btn btn-danger btn-sm' : droplet.status == 0}" ng-click="dreamin.updateDropletStatus(droplet.id)">
+                                    <i class="fa fa-check fa-fw" ng-show="droplet.status == 1"></i>
+                                    <i class="fa fa-times fa-fw" ng-show="droplet.status == 0"></i>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <h4 class="" ng-class="{'strike' : droplet.status == 1}">{{droplet.name}} - {{droplet.body}} </h4>
+                            </td>
+                            <td width="10%">
+                                <i class="fa fa-trash-o fa-2x" ng-click="dreamin.deleteDroplet(droplet.id)" ></i>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="alert alert-warning">
+                <h2>Dream Comments - content loaded = {{ contentLoaded }}</h2>
+                <dir-disqus disqus-shortname="getdreamin" disqus-identifier="{{dreamin.currentCloud.id }}" disqus-url="{{ dreamin.currentCloud.comment_url }}" ready-to-bind="{{ contentLoaded }}">
+
+                </dir-disqus>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <h2>Dream Settings</h2>
+            <div class="alert alert-default">
+                <h4>Cloud Goal Date</h4>
+                <p>{{dreamin.currentCloud.goal | date : 'shortDate' }}</p>
+                <p ng-show="!dreamin.currentCloud"><i>There's no dream selected</i></p>
+            </div>
+            <span ng-show="dreamin.currentCloud">
+                <h4>Public View Status</h4>
+                <div class="btn-group btn-group-justified" role="group">
+                    <a class="btn btn-default" ng-class="{'active' : dreamin.currentCloud.private == '1'}" ng-click="dreamin.makeCloudPrivate(1)">Private</a>
+                    <a class="btn btn-default" ng-class="{'active' : dreamin.currentCloud.private == '0'}" ng-click="dreamin.makeCloudPrivate(0)">Public</a>
+                </div>
+                <h4>Needs Review Status</h4>
+                <div class="btn-group btn-group-justified" role="group">
+                    <a class="btn btn-default" ng-class="{'active' : dreamin.currentCloud.newcloud == '1'}" ng-click="dreamin.cloudFlagReview(1)">Needs Review</a>
+                    <a class="btn btn-default disabled"  ng-class="{'active' : dreamin.currentCloud.newcloud == '0'}" disabled>Good!</a>
+                </div>
+            </span>
+        </div>
+    </div>
+    <!-- ng-show="dreamin.clouds.length !== 0" -->
+</div>

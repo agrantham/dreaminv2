@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-4">
+       <h2>Login:</h2>
+       <form role="form">
+            <div class="form-group">
+                <label for="username">Username or Email:</label>
+                <input type="text" ng-model="body.username" class="form-control" placeholder="tony@stark.com">
+                <a ui-sref="usernameRecovery" class="pull-right hidden">Forgot Username</a>
+            </div>
+            <div class="form-group">
+                <label for="username">Password:</label>
+                <input type="password" ng-model="body.password" class="form-control">
+                <a ui-sref="passwordRecovery" class="pull-right">Forgot Password</a><br>
+            </div>
+            <div class="btn btn-primary btn-block" ng-click="body.login()">Login</div>
+            <div class="btn btn-warning btn-block" ui-sref="signup">Sign Up!</div>
+       </form>
+    </div>
+    <div class="col-md-8">
+        <h2>Check out some dreams!</h2>
+        <div class="row" ng-repeat="user in body.users" style="margin-bottom:7px;">
+            <div class="col-md-3">
+                <img ng-src="{{user.metadata.userimg}}" class="img-responsive img-circle pull-right" width="100">
+            </div>
+            <div class="col-md-9 dreamlist" ng-repeat="cloud in user.clouds | object2Array | limitTo:1" >
+                <h3>{{cloud.title}}<br><small> {{ user.metadata.firstname }} from {{ user.metadata.city }}</small></h3>
+                <p>{{ cloud.body | limitTo:100}} | {{cloud.private}}</p>
+                <a ui-sref="dream({cloudid : cloud.id})" ng-show="cloud.id" class="btn btn-small btn-primary pull-right">View Dream</a>
+            </div>
+        </div>
+    </div>
+</div>

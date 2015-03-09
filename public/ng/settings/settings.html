@@ -1,0 +1,145 @@
+
+
+<h1>Hello {{body.user.metadata.firstname}}</h1>
+<div class="row">
+    <div class="col-md-6">
+        <h3>Personal Information </h3>
+        <div class="list-group" style="background-color:transparent">
+            <div class="list-group-item form-group" style="background-color:transparent">
+                First Name:
+                <input type="text" class="form-control" ng-model="body.user.metadata.firstname">
+            </div>
+            <div class="list-group-item form-group" style="background-color:transparent">
+                Last Name:
+                <input type="text" class="form-control" ng-model="body.user.metadata.lastname">
+            </div>
+            <div class="list-group-item form-group" style="background-color:transparent">
+                Email:
+                <input type="text" class="form-control" ng-model="body.user.email">
+            </div>
+            <div class="list-group-item form-group" style="background-color:transparent">
+                Address One:
+                <input type="text" class="form-control" ng-model="body.user.metadata.addressone">
+            </div>
+            <div class="list-group-item form-group" style="background-color:transparent">
+                Address Two:
+                <input type="text" class="form-control" ng-model="body.user.metadata.addresstwo">
+            </div>
+            <div class="list-group-item form-group" style="background-color:transparent">
+                State:
+                <input type="text" class="form-control" ng-model="body.user.metadata.state">
+            </div>
+            <div class="list-group-item form-group" style="background-color:transparent">
+                City:
+                <input type="text" class="form-control" ng-model="body.user.metadata.city">
+            </div>
+            <div class="list-group-item form-group" style="background-color:transparent">
+                Zip Code:
+                <input type="text" class="form-control" ng-model="body.user.metadata.zip">
+            </div>
+            <div class="list-group-item form-group" style="background-color:transparent">
+                <div class="btn btn-success btn-block btn-sm" ng-click="body.updateUser()"><i class="fa fa-wrench"></i> Update Info</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h3>Account Information</h3>
+        <div class="list-group" style="background-color:transparent">
+            <div class="list-group">
+                <div class="list-group-item" style="background-color:transparent">
+                    Username: <small>(Username cannot be changed)</small><br>
+                    {{ body.user.username }}
+                </div>
+                <div class="list-group-item" style="background-color:transparent">
+                    Account Status: <br>{{ body.user.metadata.status }}
+                </div>
+                <div class="list-group-item" style="background-color:transparent">
+                    Profile Image:<br>
+                    <ng-file-drop ng-model="body.files" ng-file-change="fileDropped($files,$event,$rejectedFiles)" ng-accept="'.jpg,.png,.JPG,.PNG'" drag-over-class="{accept:'acceptClass',reject:'rejectClass',delay:100}">
+                        Drop Files Here {{ body.files }}
+                    </ng-file-drop>
+
+                    <!-- <div class="btn btn-warning btn-block btn-sm" ng-show="!body.user.metadata.userimg">Add Image</div>
+                    <div class="btn btn-warning btn-block btn-sm" ng-show="body.user.metadata.userimg">Update Image</div>
+                    <img ng-src="{{ body.user.metadata.userimg }}" class="img-responsive"> -->
+                </div>
+                <div class="list-group-item form-group" style="background-color:transparent">
+                    Dreamin Plan: <br>{{ body.user.metadata.planname }}
+                    <div class="btn btn-warning btn-block btn-sm">Update Plan</div>
+                </div>
+                <div class="list-group-item form-group" style="background-color:transparent">
+                    Update Password:
+                    <hr>
+                    Old Password:
+                    <input type="password" class="form-control" ng-model="body.newPass.oldpassword">
+                    New Password:
+                    <input type="password" class="form-control" ng-model="body.newPass.newpasswordone">
+                    Repeat Password:
+                    <input type="password" class="form-control" ng-model="body.newPass.newpasswordtwo">
+                    <div class="btn btn-success btn-block btn-sm" ng-click="body.updatePassword()" ng-disabled="(body.newPass.newpasswordone !== body.newPass.newpasswordtwo) || (body.newPass.newpasswordone == null) || (body.newPass.newpasswordone == null) || body.newPass.oldpassword == null">
+                        <span ng-show="body.newPass.newpasswordone !== body.newPass.newpasswordtwo">Password Must Match</span>
+                        <span ng-show="body.newPass.newpasswordone == body.newPass.newpasswordtwo && body.newPass.newpasswordone !== null && body.newPass.newpasswordtwo !== null">Update Password</span>
+                    </div>
+                </div>
+                <div class="list-group-item form-group" style="background-color:transparent">
+                    Email Settings:<br>
+                    <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> When you receive a new message
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> When a cloud is flagged as inappropriate
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> When a new cloud is approved
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3>Credit Card Information:</h3>
+        <div class="list-group" style="background-color:transparent" ng-show="body.disableCreditCard == false">
+            <div class="list-group-item" style="background-color:transparent">
+                <div class="btn btn-success btn-block" ng-click="body.updateCreditCardFlag = true">
+                    Udpate Credit Card Information
+                </div>
+                <div ng-show="body.updateCreditCardFlag">
+                    <form role="form">
+                        <div class="form-group">
+                        <label>Card Number</label>
+                            <input class="form-control" type="text" name="cardNumber" ng-model="body.card.cardNumber" placeholder="4242-4242-4242-4242" required>
+                            <p ng-show="newCustomer.cardNumber.$invalid && !newCustomer.cardNumber.$pristine" class="help-block">Please enter your credit card number.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Card CVC</label>
+                            <input class="form-control" type="text" name="cvc" ng-model="body.card.cvc" placeholder="999" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Card Expire Month</label>
+                            <input class="form-control" type="text" name="expMonth" ng-model="body.card.expMonth" placeholder="01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Card Expire Year</label>
+                            <input class="form-control" type="text" name="expYear" ng-model="body.card.expYear" placeholder="2018" required>
+                        </div>
+                        <input type="hidden" name="stripeToken" ng-model="body.token"/>
+                        <div class="form-group">
+                            <input type="submit" ng-click="body.createUpdateToken()" value="Submit" class="btn btn-success btn-block" ng-disabled="newCustomer.$invalid">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="list-group" style="background-color:transparent" ng-show="body.disableCreditCard == true">
+
+            <div class="list-group-item text-center" style="background-color:transparent">
+                <h4 class="text-center">Successfully updated Credit Card</h4>
+                <i>You can only update your credit card information once per login. If you need to update it again, please <a href="javascript:;" ng-click="body.logout()">Logout</a> and login to do so.</i>
+            </div>
+        </div>
+    </div>
+</div>

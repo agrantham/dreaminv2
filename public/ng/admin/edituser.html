@@ -1,0 +1,83 @@
+
+<span style="color:#000 !important">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{{ user.metadata.firstname}}'s Information</h4>
+      </div>
+      <div class="modal-body">
+        <div class="alert" ng-show="message">
+            {{message}}
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Name:</label><br>
+                    {{ user.metadata.firstname}} {{user.metadata.lastname }}
+                </div>
+                <div class="form-group">
+                    <label>Email:</label><br>
+                    {{ user.email }}
+                </div>
+                <div class="form-group">
+                    <label>Username:</label><br>
+                    {{ user.username }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h4>Plan Information</h4>
+                <div class="form-group">
+                    <label>Plan:</label><br>
+                    {{ user.metadata.plan || "Unknown"}}
+                </div>
+                <div class="form-group">
+                    <label>Status:</label><br>
+                    {{ user.metadata.status | status_convert }}
+                </div>
+            </div>
+        </div>
+
+        <h3>Change User Group:</h3>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-success" ng-click="changegroup(user.id,3)">Make General</button>
+            <button type="button" class="btn btn-warning" ng-click="changegroup(user.id,4)" >Make Moderator</button>
+            <button type="button" class="btn btn-warning" ng-click="changegroup(user.id,5)" >Make Admin</button>
+            <button type="button" class="btn btn-warning" ng-click="changegroup(user.id,7)" >Make Mentor</button>
+            <button type="button" class="btn btn-danger" ng-click="changegroup(user.id,1)" >Ban User</button>
+        </div>
+        <h3>User Clouds</h3>
+        <table class="table" role="table">
+            <tr>
+                <th>Cloud Name</th>
+                <th>Status</th>
+                <th>New Flag</th>
+                <th>Inappropriate</th>
+                <th>Goal</th>
+                <th>Actions</th>
+            </tr>
+            <tr ng-repeat="cloud in user.clouds">
+                <td>
+                    {{ cloud.title }}
+                </td>
+                <td>
+                    {{cloud.status | status_convert }}
+                </td>
+                <td>
+                    {{ cloud.newcloud | boolean_convert }}
+                </td>
+                <td>
+                    {{ cloud.inappropriate | boolean_convert }}
+                </td>
+                <td>
+                    {{ cloud.goal }}
+                </td>
+                <td>
+                    <div class="btn btn-success">
+                        Coming Soon
+                    </div>
+                </td>
+
+            </tr>
+        </table>
+      </div>
+
+</span>
+

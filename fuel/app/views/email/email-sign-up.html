@@ -1,0 +1,1 @@
+<h2>Welcome <?php echo $name; ?>! Hey you have signed up! Great Job!</h2>

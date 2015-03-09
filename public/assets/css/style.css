@@ -1,0 +1,41 @@
+body { background-image: url('../img/dreamin-bg.jpg'); background-size:cover; background-repeat:no-repeat; background-attachment: fixed;color:#fff !important;}
+.navbar-collapse.collapse { height: 120px !important; background-color:transparent !important;}
+.navbar-default { background-color:rgba(53,53,53,.8);}
+.navbar .nav>li>a { height:120px;padding:45px;font-weight:none;text-transform: none; font-size:16px;}
+.navbar-default .navbar-nav>.active>a, .navbar .nav>li>:hover { background-color:#2294b6;}
+
+
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+footer { position:absolute;bottom:15px;left:2%;width:96%; background-color:rgba(53,53,53,.8); padding:20px; color:#8c8c8c;}
+footer a { color:#2294b6;}
+
+.dreamlist h3 { color:#369BFF; text-shadow:1px 1px 0px #000;}
+
+.home_dreams { height:600px; overflow-y:scroll;}
+
+.strike { text-decoration: line-through;}
+.form-group label { font-weight:none; text-shadow:none;}
+
+input[type=checkbox] {
+    -webkit-transform: scale(1.6,1.6);
+-moz-transform: scale(1.6,1.6);
+-o-transform: scale(1.6,1.6);
+}
+
+.currentCloud { background-color:#1a8925 !important;}
+.currentDrop   { background-color:#79d667 !important ;}
+
+.messageBox {
+    position:fixed;
+    top:0px;
+    width:100%;
+    padding:30px;
+    background-color:rgba(37,96,155,.8);
+    color:#fff;
+    text-shadow:1px 1px 9px #000;
+    height:100px;
+    z-index:9999;
+
+}

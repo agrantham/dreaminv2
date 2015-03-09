@@ -1,0 +1,50 @@
+
+
+<span style="color:#000 !important">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Update Basic Information</h4>
+      </div>
+      <code> {{user}}</code>
+      <div class="modal-body">
+        <div class="form-group">
+            <label>First Name:</label>
+            <input type="text" class="form-control" ng-model="body.user.metadata.firstname">
+        </div>
+        <div class="form-group">
+            <label>Last  Name:</label>
+            <input type="text" class="form-control" ng-model="body.user.metadata.lastname">
+        </div>
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="text" class="form-control" ng-model="body.user.email">
+        </div>
+        <div class="form-group">
+            <label>Username:</label>
+            <input type="text" class="form-control" ng-model="body.user.username">
+        </div>
+        <div class="form-group">
+            <label>Address One:</label>
+            <input type="text" class="form-control" ng-model="body.user.metadata.addressone">
+        </div>
+        <div class="form-group">
+            <label>Address Two:</label>
+            <input type="text" class="form-control" ng-model="body.user.metadata.addresstwo">
+        </div>
+        <div class="form-group">
+            <label>State:</label>
+            <input type="text" class="form-control" ng-model="body.user.metadata.state">
+        </div>
+        <div class="form-group">
+            <label>City:</label>
+            <input type="text" class="form-control" ng-model="body.user.metadata.city">
+        </div>
+        <div class="form-group">
+            <label>Zip Code:</label>
+            <input type="text" class="form-control" ng-model="body.user.metadata.zip">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="body.updateUser()">Save Changes</button>
+      </div>
+</span>
+

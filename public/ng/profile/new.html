@@ -1,0 +1,105 @@
+<div class="row">
+    <h1>Sign Up Form</h1>
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+        <form name="newCustomer" id="payment-form" role="form" novalidate>
+            <div class="form-group" ng-class="{'has-error' : newCustomer.firstname.$invalid && !newCustomer.firstname.$pristine }">
+                <label>First Name</label>
+                <input type="text" class="form-control" name="firstname" ng-model="body.newCustomer.firstname" required>
+                <p ng-show="newCustomer.firstname.$invalid && !newCustomer.firstname.$pristine" class="help-block">You first name is required.</p>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : newCustomer.lastname.$invalid && !newCustomer.lastname.$pristine }">
+                <label>Last Name</label>
+                <input type="text" class="form-control" name="lastname" ng-model="body.newCustomer.lastname"  required>
+                <p ng-show="newCustomer.lastname.$invalid && !newCustomer.lastname.$pristine" class="help-block">You last name is required.</p>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : newCustomer.username.$invalid && !newCustomer.username.$pristine }">
+                <label>Username</label>
+                <input class="form-control" type="text" name="username" ng-model="body.newCustomer.username"  required ng-minlength="6" ng-maxlength="20">
+                <p ng-show="newCustomer.username.$invalid && !newCustomer.username.$pristine" class="help-block">You username is required.</p>
+                <p ng-show="newCustomer.username.$error.minlength" class="help-block">Username is too short.</p>
+                <p ng-show="newCustomer.username.$error.maxlength" class="help-block">Username is too long.</p>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : newCustomer.email.$invalid && !newCustomer.email.$pristine }">
+                <label>Email</label>
+                <input class="form-control" type="email" name="email" ng-model="body.newCustomer.email"  required>
+                <p ng-show="newCustomer.email.$invalid && !newCustomer.email.$pristine" class="help-block">You must enter a valid email address.</p>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : newCustomer.passwordone.$invalid && !newCustomer.passwordone.$pristine }">
+                <label>Password</label>
+                <input type="password" class="form-control" name="passwordone" ng-model="body.newCustomer.passwordone" required ng-minlength="8">
+                <p ng-show="newCustomer.passwordone.$invalid && !newCustomer.passwordone.$pristine" class="help-block">You must have a password.</p>
+                <p ng-show="newCustomer.passwordone.$error.minlength" class="help-block">Password too short, must be at least 8 characters long.</p>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : newCustomer.passwordtwo.$invalid && !newCustomer.passwordtwo.$pristine || (body.newCustomer.passwordone !== body.newCustomer.passwordtwo) }">
+                <label>Password (Repeat)</label>
+                <input type="password" class="form-control" name="passwordtwo" ng-model="body.newCustomer.passwordtwo" required>
+                <p ng-show="newCustomer.passwordtwo.$invalid && !newCustomer.passwordtwo.$pristine || (body.newCustomer.passwordone !== body.newCustomer.passwordtwo)" class="help-block">Your passwords MUST match!</p>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : newCustomer.phonenumber.$invalid && !newCustomer.phonenumber.$pristine }">
+                <label>Phone Number</label>
+                <input type="text" class="form-control" name="phonenumber" ng-model="body.newCustomer.phonenumber" required>
+                <p ng-show="newCustomer.phonenumber.$invalid && !newCustomer.phonenumber.$pristine" class="help-block">You must enter your phone number.</p>
+            </div>
+             <div class="form-group">
+                <label>Gender</label>
+                <select class="form-control" name="gender" ng-model="body.newCustomer.gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Address One</label>
+                <input type="text" class="form-control" name="addressone" ng-model="body.newCustomer.addressone">
+            </div>
+            <div class="form-group">
+                <label>Address Two</label>
+                <input type="text" class="form-control" name="addresstwo" ng-model="body.newCustomer.addresstwo">
+            </div>
+            <div class="form-group">
+                <label>State</label>
+                <input type="text" class="form-control" name="state" ng-model="body.newCustomer.state">
+            </div>
+            <div class="form-group">
+                <label>City</label>
+                <input type="text" class="form-control" name="city" ng-model="body.newCustomer.city">
+            </div>
+            <div class="form-group">
+                <label>Zip</label>
+                <input type="text" class="form-control" name="zip" ng-model="body.newCustomer.zip">
+            </div>
+
+            <div class="form-group">
+                <label>Select Your Plan</label>
+                <select class="form-control" name="plan" ng-model="body.newCustomer.plan" ng-options="plan.id as plan.name for plan in body.subPlans" required></select>
+                <p ng-show="newCustomer.plan.$invalid && !newCustomer.plan.$pristine" class="help-block">Please select a plan.</p>
+            </div>
+
+            <div class="form-group">
+                <label>Card Number</label>
+                <input class="form-control" type="text" name="cardNumber" ng-model="body.card.cardNumber" placeholder="4242-4242-4242-4242" required>
+                <p ng-show="newCustomer.cardNumber.$invalid && !newCustomer.cardNumber.$pristine" class="help-block">Please enter your credit card number.</p>
+            </div>
+            <div class="form-group">
+                <label>Card CVC</label>
+                <input class="form-control" type="text" name="cvc" ng-model="body.card.cvc" placeholder="999" required>
+            </div>
+            <div class="form-group">
+                <label>Card Expire Month</label>
+                <input class="form-control" type="text" name="expMonth" ng-model="body.card.expMonth" placeholder="01" required>
+            </div>
+            <div class="form-group">
+                <label>Card Expire Year</label>
+                <input class="form-control" type="text" name="expYear" ng-model="body.card.expYear" placeholder="2018" required>
+            </div>
+            <input type="hidden" name="stripeToken" ng-model="body.token"/>
+            <div class="form-group">
+                <input type="submit" ng-click="body.createToken()" value="Submit" class="btn btn-success btn-block" ng-disabled="newCustomer.$invalid">
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3">
+
+    </div>
+</div>
